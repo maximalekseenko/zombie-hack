@@ -5,3 +5,4 @@ init.config
 venv
 /venv
 .venv
+.env
