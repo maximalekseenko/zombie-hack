@@ -1,6 +1,9 @@
 import connections
+import world
 
 
 connections.Init()
-o = connections.GetRounds()
-print(o.__dict__)
+print(connections.PutIntoQueue())
+
+world.__worldStatic = connections.GetWorldStatic()
+world.__worldDynamic = connections.GetWorldDynamic()
