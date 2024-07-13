@@ -38,13 +38,15 @@ def Init():
 
     Throws if file `init.config` is missing.
     """
+    
+    global __is_initialized, settings
+    
     load_dotenv()
     URL=os.getenv("URL")
     TOKEN=os.getenv("TOKEN")
     settings['url'] = URL
     settings['token'] = TOKEN
     __is_initialized = True
-
 
 
 
@@ -62,6 +64,11 @@ def AddCommandAttack(blockId:str, target:dict):
 
     Throws if this module is not initialized.
     """
+    
+    # Asserts.
+    assert __is_initialized, "Attempt at use of uninitialized module 'connections'."
+    
+    # Add command.
     __commands_attack.append({"blockId":blockId, "target":target})
 
 
@@ -79,7 +86,13 @@ def AddCommandBuild(position:dict):
 
     Throws if this module is not initialized.
     """
+    
+    # Asserts.
+    assert __is_initialized, "Attempt at use of uninitialized module 'connections'."
+    
+    # Add command.
     __commands_build.append({"position":position})
+
 
 
 __commands_moveBase:list[dict] = []
@@ -95,8 +108,12 @@ def AddCommandMoveBase(position:dict):
 
     Throws if this module is not initialized.
     """
+    
+    # Asserts.
+    assert __is_initialized, "Attempt at use of uninitialized module 'connections'."
+    
+    # Add command.
     __commands_moveBase.append({"position":position})
-
 
 
 
@@ -113,21 +130,20 @@ def PostCommands() -> dict:
 
     Throws if this module is not initialized.
     """
-    ret = r.post(
-        url=f"{settings["url"]}/play/zombidef/command",
-
-        headers={
-            "X-Auth-Token":settings["token"]
-        },
-
-        data={
-            "attack":__commands_attack,
-            "build":__commands_build,
-            "moveBase":__commands_moveBase
+    
+    # Asserts.
+    assert __is_initialized, "Attempt at use of uninitialized module 'connections'."
+    
+    # Make request.
+    return r.post(
+        url = f"{settings["url"]}/play/zombidef/command",
+        headers = {"X-Auth-Token":settings["token"]},
+        data = {
+            "attack": __commands_attack,
+            "build": __commands_build,
+            "moveBase": __commands_moveBase
         }
-    )
-
-    return ret
+    ).__dict__
 
 
 def PutIntoQueue() -> dict:
@@ -138,15 +154,15 @@ def PutIntoQueue() -> dict:
 
     Throws if this module is not initialized.
     """
-
-    ret = r.put(
-        url=f"{settings["url"]}/play/zombidef/participate",
-
-        headers={
-            "X-Auth-Token":settings["token"]
-        }
-    )
-    return ret
+    
+    # Asserts.
+    assert __is_initialized, "Attempt at use of uninitialized module 'connections'."
+    
+    # Make request.
+    return r.put(
+        url = f"{settings["url"]}/play/zombidef/participate",
+        headers = {"X-Auth-Token":settings["token"]}
+    ).__dict__
 
 
 def GetWorldDynamic() -> dict:
@@ -157,14 +173,15 @@ def GetWorldDynamic() -> dict:
 
     Throws if this module is not initialized.
     """
-    ret = r.get(
-        url=f"{settings["url"]}/play/zombidef/units",
-
-        headers={
-            "X-Auth-Token":settings["token"]
-        }
-    )
-    return ret
+    
+    # Asserts.
+    assert __is_initialized, "Attempt at use of uninitialized module 'connections'."
+    
+    # Make request.
+    return r.get(
+        url = f"{settings["url"]}/play/zombidef/units",
+        headers = {"X-Auth-Token":settings["token"]}
+    ).__dict__
 
 
 def GetWorldStatic() -> dict:
@@ -175,14 +192,15 @@ def GetWorldStatic() -> dict:
 
     Throws if this module is not initialized.
     """
-    ret = r.get(
-        url=f"{settings["url"]}/play/zombidef/world",
-
-        headers={
-            "X-Auth-Token":settings["token"]
-        }
-    )
-    return ret
+    
+    # Asserts.
+    assert __is_initialized, "Attempt at use of uninitialized module 'connections'."
+    
+    # Make request.
+    return r.get(
+        url = f"{settings["url"]}/play/zombidef/world",
+        headers = {"X-Auth-Token": settings["token"]}
+    ).__dict__
 
 
 
@@ -194,5 +212,12 @@ def GetRounds() -> dict:
 
     Throws if this module is not initialized.
     """
-    ret = r.get(url="https://games.datsteam.dev/rounds/zombidef")
-    return ret
+    
+    # Asserts.
+    assert __is_initialized, "Attempt at use of uninitialized module 'connections'."
+    
+    # Make request.
+    return r.get(
+        url = "https://games.datsteam.dev/rounds/zombidef",
+        headers = {"X-Auth-Token": settings["token"]}
+    ).__dict__
