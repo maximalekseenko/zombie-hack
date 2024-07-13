@@ -134,13 +134,11 @@ def PostCommands() -> dict:
     assert __is_initialized, "Using uninitialized module 'connections'"
 
     ret = r.post(
-        url={
-            f"{settings.url}/play/zombidef/command"
-            },
+        url=f"{settings["url"]}/play/zombidef/command",
 
         headers={
-            "X-Auth-Token":settings.token
-            },
+            "X-Auth-Token":settings["token"]
+        },
 
         data={
             "attack":__commands_attack,
@@ -162,12 +160,10 @@ def PutIntoQueue() -> dict:
     """
 
     ret = r.put(
-        url={
-            f"{settings.url}/play/zombidef/participate"
-        },
+        url=f"{settings["url"]}/play/zombidef/participate",
 
         headers={
-            "X-Auth-Token":settings.token
+            "X-Auth-Token":settings["token"]
         }
     )
     return ret
@@ -181,7 +177,14 @@ def GetWorldDynamic() -> dict:
 
     Throws if this module is not initialized.
     """
-    ...
+    ret = r.get(
+        url=f"{settings["url"]}/play/zombidef/units",
+
+        headers={
+            "X-Auth-Token":settings["token"]
+        }
+    )
+    return ret
 
 
 def GetWorldStatic() -> dict:
@@ -192,7 +195,14 @@ def GetWorldStatic() -> dict:
 
     Throws if this module is not initialized.
     """
-    ...
+    ret = r.get(
+        url=f"{settings["url"]}/play/zombidef/world",
+
+        headers={
+            "X-Auth-Token":settings["token"]
+        }
+    )
+    return ret
 
 
 
