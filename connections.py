@@ -218,6 +218,6 @@ def GetRounds() -> dict:
     
     # Make request.
     return r.get(
-        url = "https://games.datsteam.dev/rounds/zombidef",
+        url =  f"{settings["url"]}/rounds/zombidef",
         headers = {"X-Auth-Token": settings["token"]}
     ).json()
