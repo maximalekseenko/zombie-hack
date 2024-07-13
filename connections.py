@@ -62,7 +62,7 @@ def AddCommandAttack(blockId:str, target:dict):
 
     Throws if this module is not initialized.
     """
-    ...
+    __commands_attack.append({"blockId":blockId, "target":target})
 
 
 
@@ -79,8 +79,7 @@ def AddCommandBuild(position:dict):
 
     Throws if this module is not initialized.
     """
-    ...
-
+    __commands_build.append({"position":position})
 
 
 __commands_moveBase:list[dict] = []
@@ -96,8 +95,7 @@ def AddCommandMoveBase(position:dict):
 
     Throws if this module is not initialized.
     """
-    ...
-
+    __commands_moveBase.append({"position":position})
 
 
 def PostCommands() -> dict:
@@ -113,8 +111,23 @@ def PostCommands() -> dict:
 
     Throws if this module is not initialized.
     """
-    ...
+    ret = r.post(
+        url={
+            f"{settings.url}/play/zombidef/command"
+            },
 
+        headers={
+            "X-Auth-Token":settings.token
+            },
+
+        data={
+            "attack":__commands_attack,
+            "build":__commands_build,
+            "moveBase":__commands_moveBase
+        }
+    )
+
+    return ret
 
 
 def PutIntoQueue() -> dict:
@@ -125,8 +138,17 @@ def PutIntoQueue() -> dict:
 
     Throws if this module is not initialized.
     """
-    ...
 
+    ret = r.put(
+        url={
+            f"{settings.url}/play/zombidef/participate"
+        },
+
+        headers={
+            "X-Auth-Token":settings.token
+        }
+    )
+    return ret
 
 
 def GetWorldDynamic() -> dict:
