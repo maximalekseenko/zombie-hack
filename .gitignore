@@ -2,3 +2,6 @@
 .DS_Store
 motivation.png
 init.config
+venv
+/venv
+.venv
