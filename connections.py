@@ -143,7 +143,7 @@ def PostCommands() -> dict:
             "build": __commands_build,
             "moveBase": __commands_moveBase
         }
-    ).__dict__
+    ).json()
 
 
 def PutIntoQueue() -> dict:
@@ -162,7 +162,7 @@ def PutIntoQueue() -> dict:
     return r.put(
         url = f"{settings["url"]}/play/zombidef/participate",
         headers = {"X-Auth-Token":settings["token"]}
-    ).__dict__
+    ).json()
 
 
 def GetWorldDynamic() -> dict:
@@ -181,7 +181,7 @@ def GetWorldDynamic() -> dict:
     return r.get(
         url = f"{settings["url"]}/play/zombidef/units",
         headers = {"X-Auth-Token":settings["token"]}
-    ).__dict__
+    ).json()
 
 
 def GetWorldStatic() -> dict:
@@ -200,7 +200,7 @@ def GetWorldStatic() -> dict:
     return r.get(
         url = f"{settings["url"]}/play/zombidef/world",
         headers = {"X-Auth-Token": settings["token"]}
-    ).__dict__
+    ).json()
 
 
 
@@ -220,4 +220,4 @@ def GetRounds() -> dict:
     return r.get(
         url = "https://games.datsteam.dev/rounds/zombidef",
         headers = {"X-Auth-Token": settings["token"]}
-    ).__dict__
+    ).json()
