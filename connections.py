@@ -1,9 +1,9 @@
 """Module for handling connections.
 
 Before using this module:
-1. Set up settings in init.config
+1. Set up settings in `.env`
 * `url` - url to the server. It can be a test one of a final one;
-* `token` - personal token for  connecting ;
+* `token` - personal token for connecting;
 
 Those setting may be changed in run-time by adjusting them in `connections.settings` variable.
 
