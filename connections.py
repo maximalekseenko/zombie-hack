@@ -98,7 +98,9 @@ def PostCommands() -> dict:
 
     All commands will be cleared after sending.
     
-    Returns respond to this command.
+    Returns respond to this command with next structure on success:
+    * `acceptedCommands` -- List of accepted commands;
+    * `errors` -- list of errors happened during command execution.
 
     Throws if this module is not initialized.
     """
@@ -106,10 +108,11 @@ def PostCommands() -> dict:
 
 
 
-def PutQueue() -> dict:
+def PutIntoQueue() -> dict:
     """Puts *us* into next round queue.
     
-    Returns respond to this command.
+    Returns respond to this command with next structure on success:
+    * `startsInSec` -- Number of time until start.
     
     Throws if this module is not initialized.
     """
@@ -120,7 +123,8 @@ def PutQueue() -> dict:
 def GetWorldDynamic() -> dict:
     """Gets dynamic parts of the world.
 
-    Returns respond to this command.
+    Returns respond to this command with next structure on success:
+    * TODO
     
     Throws if this module is not initialized.
     """
@@ -130,7 +134,8 @@ def GetWorldDynamic() -> dict:
 def GetWorldStatic() -> dict:
     """Gets static parts of the world.
     
-    Returns respond to this command.
+    Returns respond to this command with next structure on success:
+    * TODO
     
     Throws if this module is not initialized.
     """
@@ -141,7 +146,8 @@ def GetWorldStatic() -> dict:
 def GetRounds() -> dict:
     """Gets info about rounds.
     
-    Returns respond to this command.
+    Returns respond to this command with next structure on success:
+    * TODO
     
     Throws if this module is not initialized.
     """
