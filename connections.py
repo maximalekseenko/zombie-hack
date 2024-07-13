@@ -9,6 +9,9 @@ Those setting may be changed in run-time by adjusting them in `connections.setti
 
 2. Run `connections.Init` to initialize this module.
 """
+import os
+import requests as r
+from dotenv import load_dotenv
 
 
 
@@ -35,7 +38,13 @@ def Init():
 
     Throws if file `init.config` is missing.
     """
-    ...
+    load_dotenv()
+    URL=os.getenv("URL")
+    TOKEN=os.getenv("TOKEN")
+    settings['url'] = URL
+    settings['token'] = TOKEN
+    __is_initialized = True
+
 
 
 
@@ -46,7 +55,7 @@ Add new commands with `connections.AddCommandAttack`
 """
 def AddCommandAttack(blockId:str, target:dict):
     """Adds attack command to next post request.
-    
+
     Arguments:
     * blockId -- Id of a base block to attack from;
     * target -- Target position, defined with `"x"` and `"y"` fields;
@@ -64,14 +73,14 @@ Add new commands with `connections.AddCommandBuild`
 """
 def AddCommandBuild(position:dict):
     """Adds build command to next post request.
-    
+
     Arguments:
     * position -- Target position, defined with `"x"` and `"y"` fields;
 
     Throws if this module is not initialized.
     """
     ...
-    
+
 
 
 __commands_moveBase:list[dict] = []
@@ -81,7 +90,7 @@ Add new commands with `connections.AddCommandMoveBase`
 """
 def AddCommandMoveBase(position:dict):
     """Adds moveBase command to next post request.
-    
+
     Arguments:
     * position -- Target position, defined with `"x"` and `"y"` fields;
 
@@ -97,7 +106,7 @@ def PostCommands() -> dict:
     Use AddCommandXXX functions to add commands, that will be sent with this function.
 
     All commands will be cleared after sending.
-    
+
     Returns respond to this command with next structure on success:
     * `acceptedCommands` -- List of accepted commands;
     * `errors` -- list of errors happened during command execution.
@@ -110,10 +119,10 @@ def PostCommands() -> dict:
 
 def PutIntoQueue() -> dict:
     """Puts *us* into next round queue.
-    
+
     Returns respond to this command with next structure on success:
     * `startsInSec` -- Number of time until start.
-    
+
     Throws if this module is not initialized.
     """
     ...
@@ -125,7 +134,7 @@ def GetWorldDynamic() -> dict:
 
     Returns respond to this command with next structure on success:
     * TODO
-    
+
     Throws if this module is not initialized.
     """
     ...
@@ -133,22 +142,22 @@ def GetWorldDynamic() -> dict:
 
 def GetWorldStatic() -> dict:
     """Gets static parts of the world.
-    
+
     Returns respond to this command with next structure on success:
     * TODO
-    
+
     Throws if this module is not initialized.
     """
     ...
 
 
-    
+
 def GetRounds() -> dict:
     """Gets info about rounds.
-    
+
     Returns respond to this command with next structure on success:
     * TODO
-    
+
     Throws if this module is not initialized.
     """
     ...
