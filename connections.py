@@ -9,9 +9,6 @@ Those setting may be changed in run-time by adjusting them in `connections.setti
 
 2. Run `connections.Init` to initialize this module.
 """
-
-
-
 import os
 import requests as r
 from dotenv import load_dotenv
@@ -65,11 +62,6 @@ def AddCommandAttack(blockId:str, target:dict):
 
     Throws if this module is not initialized.
     """
-
-    # Asserts.
-    assert __is_initialized, "Using uninitialized module 'connections'"
-
-    # Adding command.
     __commands_attack.append({"blockId":blockId, "target":target})
 
 
@@ -87,11 +79,6 @@ def AddCommandBuild(position:dict):
 
     Throws if this module is not initialized.
     """
-
-    # Asserts.
-    assert __is_initialized, "Using uninitialized module 'connections'"
-
-    # Adding command.
     __commands_build.append({"position":position})
 
 
@@ -108,12 +95,9 @@ def AddCommandMoveBase(position:dict):
 
     Throws if this module is not initialized.
     """
-
-    # Asserts.
-    assert __is_initialized, "Using uninitialized module 'connections'"
-
-    # Adding command.
     __commands_moveBase.append({"position":position})
+
+
 
 
 def PostCommands() -> dict:
@@ -129,10 +113,6 @@ def PostCommands() -> dict:
 
     Throws if this module is not initialized.
     """
-
-    # Asserts.
-    assert __is_initialized, "Using uninitialized module 'connections'"
-
     ret = r.post(
         url=f"{settings["url"]}/play/zombidef/command",
 
@@ -214,4 +194,5 @@ def GetRounds() -> dict:
 
     Throws if this module is not initialized.
     """
-    ...
+    ret = r.get(url="https://games.datsteam.dev/rounds/zombidef")
+    return ret
