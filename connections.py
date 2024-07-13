@@ -173,7 +173,14 @@ def GetWorldStatic() -> dict:
 
     Throws if this module is not initialized.
     """
-    ...
+    ret = r.get(
+        url=f"{settings["url"]}/play/zombidef/world",
+
+        headers={
+            "X-Auth-Token":settings["token"]
+        }
+    )
+    return ret
 
 
 
